@@ -8,9 +8,14 @@ const getUserDetail = (id: string) => {
   return instance.get(`users/${id}`)
 }
 
+const updatedUserDetail = (id: string, data: any) => {
+  return instance.put(`users/${id}`, data)
+}
+
 const UserAPIs = {
   getAllUser,
-  getUserDetail
+  getUserDetail,
+  updatedUserDetail
 }
 
 export default UserAPIs

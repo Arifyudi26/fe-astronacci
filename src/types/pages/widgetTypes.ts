@@ -38,6 +38,7 @@ export type User = {
   email: string
   createdAt: string
   type_membership: string
+  bio: string
   picture: string
 }
 
