@@ -36,7 +36,9 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "sweetalert2": "^11.15.3",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.218",

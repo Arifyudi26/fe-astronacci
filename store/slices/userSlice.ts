@@ -42,6 +42,19 @@ const userSlice = createSlice({
       state.loading = false
       state.error = action.payload
     },
+    updatedUserDetailRequest: state => {
+      state.loading = true
+      state.error = null
+    },
+    updatedUserDetailSuccess: (state, action: PayloadAction<User>) => {
+      state.userDetail = action.payload
+      state.loading = false
+      state.error = null
+    },
+    updatedUserDetailFailure: (state, action: PayloadAction<string>) => {
+      state.loading = false
+      state.error = action.payload
+    },
     clearUserDetail: state => {
       state.userDetail = null
     }
@@ -55,6 +68,9 @@ export const {
   fetchUserDetailRequest,
   fetchUserDetailSuccess,
   fetchUserDetailFailure,
+  updatedUserDetailRequest,
+  updatedUserDetailSuccess,
+  updatedUserDetailFailure,
   clearUserDetail
 } = userSlice.actions
 
@@ -87,5 +103,22 @@ export const fetchUserDetail = (id: string) => async (dispatch: AppDispatch) => 
     const errorMessage = error instanceof Error ? error.message : 'Failed to fetch user detail'
 
     dispatch(fetchUserDetailFailure(errorMessage))
+  }
+}
+
+export const updatedhUserDetail = (id: string, data: any) => async (dispatch: AppDispatch) => {
+  dispatch(updatedUserDetailRequest())
+
+  try {
+    const response = await UserAPIs.updatedUserDetail(id, data)
+    const userDetail = response.data
+
+    dispatch(updatedUserDetailSuccess(userDetail.user))
+  } catch (error: any) {
+    const errorMessage =
+      error.response?.data?.message || (error instanceof Error ? error.message : 'Failed to update user detail')
+
+    dispatch(updatedUserDetailFailure(errorMessage))
+    throw new Error(errorMessage)
   }
 }
